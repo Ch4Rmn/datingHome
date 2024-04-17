@@ -10,10 +10,10 @@
                         <img style="width: 32px;height:32px" src="<?php echo $admin_img; ?>" alt="..." class="img-circle profile_img">
                     </a>
                     <span><?php
-                            if (isset($_SESSION)) {
+                            if (isset($_SESSION['username'])) {
                                 echo $_SESSION['username'];
                             } else {
-                                $_COOKIE['username'];
+                                echo $_COOKIE['username'];
                             }
                             ?></span>
                     <div class="dropdown-menu dropdown-submenu pull-right" aria-labelledby="navbarDropdown">
