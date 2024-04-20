@@ -1,24 +1,23 @@
 <?php
 session_start();
 
-$auth_role = [1];
+
 // $password = "apple";
 // $password = md5($shaKey . md5($password));
 // echo $password;
 // 1bc42deee499c3eacd84beb569ebb9e0
 // 1bc42deee499c3eacd84beb569ebb9e0 
 
-// config
+// config 
 require_once('../config/require.php');
 
 // require_once('../config/config.php');
 // require_once('../config/auth.php');
 // require_once('../config/database.php');
 // require_once('../config/include_function.php');
-// require_once('../config/admin_middleware.php');
 
 // echo $user_id;
-$title = "MMCupid::Home";
+$title = "MMCupid::Edit";
 // header 
 require_once('../master/cp-template-header.php');
 // sidebar 
@@ -104,7 +103,8 @@ if (isset($_POST['form-sub']) && ($_POST['form-sub']) == 1) {
         <div class="col-md-12 col-sm-12 ">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2>Create User<small></small></h2>
+                    <h2>Edit User<small></small></h2>
+                    <?php echo $url; ?>
                     <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
@@ -148,7 +148,7 @@ if (isset($_POST['form-sub']) && ($_POST['form-sub']) == 1) {
                                                         } ?>>Editor</option>
                                     <option value="3" <?php if ($role == 3) {
                                                             echo "selected";
-                                                        } ?>>Customer Service</option>
+                                                        } ?>>Editor</option>
                                 </select>
                             </div>
                         </div>

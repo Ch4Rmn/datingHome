@@ -3,18 +3,18 @@
     require_once('../config/config.php');
 
 
-    if (isset($_SESSION)) {
+    if (isset($_SESSION['role'])) {
         $user_role = $_SESSION['role'];
     } else {
         $user_role = $_COOKIE['role'];
     }
 
+    // echo $user_role;
     if ($user_role == 1) {
-        $admin_img = $baseUrl . "assets/images/editor.jpeg";
-    } else {
         $admin_img = $baseUrl . "assets/images/dating.png";
+    } else {
+        $admin_img = $baseUrl . "assets/images/editor.jpeg";
     }
-
 
     ?>
 
@@ -35,7 +35,7 @@
                              <img src="<?php echo $admin_img ?>" alt="..." class="img-circle profile_img">
                          </div>
                          <div class="profile_info">
-                             <span>Welcome,</span>
+                             <span>Welcome,Role<?php echo $user_role; ?></span>
                              <h2 class=""><?php
                                             if (isset($_SESSION['username'])) {
                                                 echo $_SESSION['username'];
@@ -43,7 +43,7 @@
                                                 echo $_COOKIE['username'];
                                             }
                                             ?>
-                                            </h2>
+                             </h2>
                          </div>
                      </div>
                      <!-- /menu profile quick info -->
@@ -56,12 +56,19 @@
                              <h3>General</h3>
                              <ul class="nav side-menu">
                                  <li><a href="<?php ?>"><i class="fa fa-home"></i> Landing Page</a></li>
-                                 <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
-                                     <ul class="nav child_menu">
-                                         <li><a href="<?php $adminBaseUrl; ?>create_user.php">Create</a></li>
-                                         <li><a href="<?php $adminBaseUrl; ?>show_user.php">Listing</a></li>
-                                     </ul>
-                                 </li>
+
+                                 <?php if ($user_role == 1) { ?>
+                                     <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
+                                         <ul class="nav child_menu">
+                                             <li><a href="<?php $adminBaseUrl; ?>create_user.php">Create</a></li>
+                                             <li><a href="<?php $adminBaseUrl; ?>show_user.php">Listing</a></li>
+                                         </ul>
+                                     </li>
+                                 <?php
+                                    }
+
+                                    ?>
+
 
 
                              </ul>
