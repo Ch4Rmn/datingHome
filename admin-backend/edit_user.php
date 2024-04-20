@@ -13,8 +13,6 @@ require_once('../master/cp-template-sidebar.php');
 // <!-- top navigation -->
 require_once('../master/cp-template-navbar.php');
 
-$username = ''; // Initialize username variable
-
 $error = false;
 $errorMessage  = '';
 $processError = false;
@@ -38,8 +36,6 @@ if ($user_num_row > 0) {
     $errorMessage = 'User not found or Deleted from Our Main Server!';
     $showForm = false;
 }
-
-
 ?>
 
 <?php if ($showForm) : ?>
@@ -81,8 +77,8 @@ if ($user_num_row > 0) {
                                     <select class="form-control" id="role" name="role">
                                         <option value="">Choose Role</option>
                                         <option value="1" <?php if ($role == 1) echo "selected"; ?>>Admin</option>
-                                        <option value="2" <?php if ($role == 2) echo "selected"; ?>>Editor</option>
-                                        <option value="3" <?php if ($role == 3) echo "selected"; ?>>Customer Service</option>
+                                        <option value="2" <?php if ($role == 2) echo "selected"; ?>>Customer Service</option>
+                                        <option value="3" <?php if ($role == 3) echo "selected"; ?>>Editor</option>
                                     </select>
                                 </div>
                             </div>

@@ -145,10 +145,10 @@ if (isset($_POST['form-sub']) && ($_POST['form-sub']) == 1) {
                                                         } ?>>Admin</option>
                                     <option value="2" <?php if ($role == 2) {
                                                             echo "selected";
-                                                        } ?>>Editor</option>
+                                                        } ?>>Customer Service</option>
                                     <option value="3" <?php if ($role == 3) {
                                                             echo "selected";
-                                                        } ?>>Customer Service</option>
+                                                        } ?>>Editor</option>
                                 </select>
                             </div>
                         </div>

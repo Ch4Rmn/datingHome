@@ -90,8 +90,10 @@ $query = $mysqli->query($sql);
                                             <input type="checkbox" class="flat" name="table_records">
                                         </td>
                                         <td class=""><?php echo $userID ?></td>
-                                        
-                                        <td class=""><h4 class=""><?php echo $username ?></h4></td>
+
+                                        <td class="">
+                                            <h4 class=""><?php echo $username ?></h4>
+                                        </td>
                                         <td class=""><?php echo $role_name ?></td>
                                         <td class="">
                                             <?php
