@@ -27,6 +27,9 @@
 
 
   <script src="<?php echo $baseUrl ?>assets/js/icheck/icheck.min.js"></script>
+  <script src="<?php echo $baseUrl ?>assets/js/sweetalert/sweetalert2@11.js"></script>
+  <!-- <script src="<?php echo $baseUrl ?>assets/js/sweetalert/sweetalert2@11.js"></script> -->
+
 
 
   <script src="<?php echo $baseUrl; ?>assets/js/custom.js?v=20240409"></script>
