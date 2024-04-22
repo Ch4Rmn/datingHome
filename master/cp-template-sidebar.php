@@ -69,6 +69,18 @@
 
                                     ?>
 
+                                 <?php if ($user_role == 1) { ?>
+                                     <li><a><i class="fa fa-list"></i> City Management <span class="fa fa-chevron-down"></span></a>
+                                         <ul class="nav child_menu">
+                                             <li><a href="<?php $adminBaseUrl; ?>create_city.php">Create City</a></li>
+                                             <li><a href="<?php $adminBaseUrl; ?>show_city.php">Listing City</a></li>
+                                         </ul>
+                                     </li>
+                                 <?php
+                                    }
+
+                                    ?>
+
 
 
                              </ul>

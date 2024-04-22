@@ -2,13 +2,6 @@
 session_start();
 $auth_role = [1];
 
-// if (isset($_SESSION['id'])) {
-//     $user_id =  $_SESSION['id'];
-// } else {
-//     echo $_COOKIE['id'];
-// }
-
-
 // config 
 require_once('../config/config.php');
 require_once('../config/database.php');
@@ -17,30 +10,21 @@ require_once('../config/auth.php');
 require_once('../config/admin_middleware.php');
 
 $title = "MMCupid::Show Users";
-$edit_link = "edit_user.php";
-$delete_link = "delete_user.php";
-$change_password_link = "change_password_user.php";
 // header 
 require_once('../master/cp-template-header.php');
 // sidebar 
 require_once('../master/cp-template-sidebar.php');
-// <!-- top navigation -->
+// top navigation
 require_once('../master/cp-template-navbar.php');
+
+$edit_link = "edit_city.php";
+$delete_link = "delete_city.php";
 
 $sql = "SELECT 
     `id`, 
-    `username`, 
-    CASE 
-        WHEN `role` = 1 THEN 'admin'
-        WHEN `role` = 2 THEN 'customer_service'
-        WHEN `role` = 3 THEN 'editor'
-        ELSE 'unknown'
-    END AS `role_name`, 
-    `status`, 
-    `created_at`, 
-    `updated_at` 
+    `name`
 FROM 
-    `user` 
+    `city` 
 WHERE 
     `deleted_at` IS NULL 
 ORDER BY 
@@ -63,12 +47,8 @@ $query = $mysqli->query($sql);
                                     <input type="checkbox" id="check-all" class="flat">
                                 </th>
                                 <th class="column-title">id </th>
-                                <th class="column-title">Username </th>
-                                <th class="column-title">Role </th>
-                                <th class="column-title">Status</th>
-                                <th class="column-title">Created_by</th>
-                                <th class="column-title">Action</th>
-                                </th>
+                                <th class="column-title">name </th>
+                                <th class="column-title">Action </th>
                                 <th class="bulk-actions" colspan="7">
                                     <a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
                                 </th>
@@ -80,39 +60,25 @@ $query = $mysqli->query($sql);
                             $num_row = $query->num_rows;
                             if ($num_row >= 1) {
                                 while ($user = $query->fetch_assoc()) {
+                                    // print_r($user);
+                                    // die;
                                     $userID = $user['id'];
-                                    $username = $user['username'];
-                                    $role_name = $user['role_name'];
-                                    $status = $user['status'];
+                                    $name = $user['name'];
+
                             ?>
                                     <tr class="even pointer">
                                         <td class="a-center">
                                             <input type="checkbox" class="flat" name="table_records">
                                         </td>
                                         <td class=""><?php echo $userID ?></td>
+                                        <td class="">
+                                            <h4 class=""><?php echo $name ?></h4>
+                                        </td>
 
-                                        <td class="">
-                                            <h4 class=""><?php echo $username ?></h4>
-                                        </td>
-                                        <td class=""><?php echo $role_name ?></td>
-                                        <td class="">
-                                            <?php
-                                            if ($status == 0) {
-                                                echo "<p class='bg-success rounded p-1 shadow text-white'>Active</p>";
-                                            } else {
-                                                echo "<p class='bg-danger rounded p-1 shadow'>Inactive</p>";
-                                            }
-                                            ?>
-                                        </td>
-                                        <td class=""><?php echo $user['created_at'] ?></td>
                                         <td>
-
+                                            <!-- Replace placeholders with appropriate URLs -->
                                             <a class="btn btn-danger" href='javascript:void(0)' onclick="confirmDelete('<?php echo $adminBaseUrl . $delete_link . '?id=' . $userID; ?>')"> <i class="fa fa-trash-o"></i>Delete</a>
-
-                                            <a class="btn btn-success" href='javascript:void(0)' onclick="confirmChangePass('<?php echo $adminBaseUrl . $change_password_link . '?id=' . $userID; ?>')"> <i class="fa fa-gear"></i>ChangePass</a>
-
                                             <a class="btn btn-primary" href='javascript:void(0)' onclick="confirmEdit('<?php echo $adminBaseUrl . $edit_link . '?id=' . $userID; ?>')"> <i class="fa fa-pencil"></i>Edit</a>
-
                                         </td>
                                     </tr>
                             <?php
@@ -120,16 +86,12 @@ $query = $mysqli->query($sql);
                             } // End of the if condition
                             ?>
                         </tbody>
-
-
                     </table>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-
 
 <?php
 // footer 
@@ -164,21 +126,7 @@ require_once('../master/cp-template-footer.php'); ?>
     }
 
 
-    function confirmChangePass(url) {
-        Swal.fire({
-            title: "Are you sure?",
-            text: "You won't be able to revert this!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, Change Password it!"
-        }).then((result) => {
-            if (result.isConfirmed) {
-                window.location.href = url;
-            }
-        });
-    }
+
 
     function confirmEdit(url) {
         Swal.fire({

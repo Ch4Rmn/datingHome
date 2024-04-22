@@ -3,7 +3,7 @@ session_start();
 $auth_role = [1];
 
 require_once('../config/require.php');
-$username = $status = $role = $role = '';
+$username = $status = $status = $role = '';
 $processError = false;
 $error = false;
 

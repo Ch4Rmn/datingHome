@@ -30,7 +30,7 @@ $username = $password = $confirm_password = $role = '';
 $error = false;
 $errorMessage  = '';
 $processError = false;
-$url = $adminBaseUrl . "show_user.php";
+// $url = $adminBaseUrl . "show_user.php";
 
 
 if (isset($_POST['form-sub']) && ($_POST['form-sub']) == 1) {
@@ -86,8 +86,10 @@ if (isset($_POST['form-sub']) && ($_POST['form-sub']) == 1) {
         $createSql = "INSERT INTO `user`(`username`, `password`, `role`,`updated_by`, `created_by`) VALUES ('$username','$password','$role','$user_id','$user_id')";
         $createQuery = $mysqli->query($createSql);
         if ($createQuery === true) {
+            $url = $adminBaseUrl . "login.php";
             header("Refresh:0;url=$url");
             exit();
+
         } else {
             // Handle error if the query fails
             $error = true;

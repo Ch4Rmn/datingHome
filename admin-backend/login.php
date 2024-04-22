@@ -49,6 +49,7 @@ if (isset($_POST['submit'])) {
         $password = $_POST['password'];
 
         $sql = "SELECT `id`, `username`, `password`, `role`, `status` FROM `user` WHERE username='$username'";
+        
         $query = $mysqli->query($sql);
         // query_row is just a row does not include data 
         $query_row = $query->num_rows;
