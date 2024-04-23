@@ -9,7 +9,7 @@ require_once('../config/include_function.php');
 require_once('../config/auth.php');
 require_once('../config/admin_middleware.php');
 
-$title = "MMCupid::Show Users";
+$title = "MMCupid::Show Hobbies";
 // header 
 require_once('../master/cp-template-header.php');
 // sidebar 
@@ -17,14 +17,14 @@ require_once('../master/cp-template-sidebar.php');
 // top navigation
 require_once('../master/cp-template-navbar.php');
 
-$edit_link = "edit_city.php";
-$delete_link = "delete_city.php";
+$edit_link = "edit_hobby.php";
+$delete_link = "delete_hobby.php";
 
 $sql = "SELECT 
     `id`, 
     `name`
 FROM 
-    `city` 
+    `hobbies` 
 WHERE 
     `deleted_at` IS NULL 
 ORDER BY 
@@ -40,7 +40,8 @@ $query = $mysqli->query($sql);
         <div class="x_panel">
             <div class="x_content">
                 <div class="table-responsive">
-                    <h1>Show City</h1>
+                    <h1>Show Hobbies</h1>
+
                     <table class="table table-striped jambo_table bulk_action ">
                         <thead class="">
                             <tr class="headings my-2">

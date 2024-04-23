@@ -11,6 +11,7 @@ $auth_role = [1];
 // config
 require_once('../config/require.php');
 
+
 // require_once('../config/config.php');
 // require_once('../config/auth.php');
 // require_once('../config/database.php');
@@ -19,13 +20,6 @@ require_once('../config/require.php');
 
 // echo $user_id;
 $title = "MMCupid::Home";
-// header 
-require_once('../master/cp-template-header.php');
-// sidebar 
-require_once('../master/cp-template-sidebar.php');
-// <!-- top navigation -->
-require_once('../master/cp-template-navbar.php');
-
 $username = $password = $confirm_password = $role = '';
 $error = false;
 $errorMessage  = '';
@@ -89,7 +83,6 @@ if (isset($_POST['form-sub']) && ($_POST['form-sub']) == 1) {
             $url = $adminBaseUrl . "login.php";
             header("Refresh:0;url=$url");
             exit();
-
         } else {
             // Handle error if the query fails
             $error = true;
@@ -97,6 +90,14 @@ if (isset($_POST['form-sub']) && ($_POST['form-sub']) == 1) {
         }
     }
 }
+// header 
+require_once('../master/cp-template-header.php');
+// sidebar 
+require_once('../master/cp-template-sidebar.php');
+// <!-- top navigation -->
+require_once('../master/cp-template-navbar.php');
+
+
 
 ?>
 

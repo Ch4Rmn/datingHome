@@ -18,7 +18,7 @@ require_once('../config/include_function.php');
 require_once('../config/admin_middleware.php');
 
 // echo $user_id;
-$title = "MMCupid::CreateCity";
+$title = "MMCupid::CreateHobbies";
 $name = "";
 $error = false;
 $errorMessage = "";
@@ -30,13 +30,13 @@ if (isset($_POST['submit'])) {
 
     if ($name == '') {
         $error = true;
-        $errorMessage = "need to fill city";
+        $errorMessage = "need to fill Hobby";
         $processError = true;
     } else {
-        $sql = "INSERT INTO `city`( `name`,`created_by`, `updated_by`) VALUES ('$name','$user_id','$user_id')";
+        $sql = "INSERT INTO `hobbies`( `name`,`created_by`, `updated_by`) VALUES ('$name','$user_id','$user_id')";
         $query = $mysqli->query($sql);
         if ($query) {
-            $url = $adminBaseUrl . "show_city.php";
+            $url = $adminBaseUrl . "show_hobby.php";
             header("Refresh:0;url=$url");
             exit();
         } else {
@@ -68,7 +68,7 @@ require_once('../master/cp-template-navbar.php');
                 </div>
                 <div class="x_content">
                     <br />
-                    <form action="<?php echo $adminBaseUrl ?>create_city.php" method="POST">
+                    <form action="<?php echo $adminBaseUrl ?>create_hobby.php" method="POST">
 
                         <div class="item form-group">
                             <label class="col-form-label col-md-3 col-sm-3 label-align" for="name">name <span class="required">*</span>

@@ -66,7 +66,6 @@
                                      </li>
                                  <?php
                                     }
-
                                     ?>
 
                                  <?php if ($user_role == 1) { ?>
@@ -78,9 +77,32 @@
                                      </li>
                                  <?php
                                     }
-
                                     ?>
 
+
+                                 <?php if ($user_role == 1) { ?>
+                                     <li><a><i class="fa fa-apple"></i> Hobbies Management <span class="fa fa-chevron-down"></span></a>
+                                         <ul class="nav child_menu">
+                                             <li><a href="<?php $adminBaseUrl; ?>create_hobby.php">Create Hobby</a></li>
+                                             <li><a href="<?php $adminBaseUrl; ?>show_hobby.php">Listing Hobby</a></li>
+                                         </ul>
+                                     </li>
+                                 <?php
+                                    }
+                                    ?>
+
+
+
+                                 <?php if ($user_role == 1) { ?>
+                                     <li><a><i class="fa fa-gear"></i> Setting <span class="fa fa-chevron-down"></span></a>
+                                         <ul class="nav child_menu">
+                                             <li><a href="<?php $adminBaseUrl; ?>create_setting.php">Create Setting</a></li>
+                                             <li><a href="<?php $adminBaseUrl; ?>show_setting.php">Listing Setting</a></li>
+                                         </ul>
+                                     </li>
+                                 <?php
+                                    }
+                                    ?>
 
 
                              </ul>

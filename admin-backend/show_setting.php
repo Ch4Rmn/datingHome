@@ -21,10 +21,9 @@ $edit_link = "edit_city.php";
 $delete_link = "delete_city.php";
 
 $sql = "SELECT 
-    `id`, 
-    `name`
+    *
 FROM 
-    `city` 
+    `setting` 
 WHERE 
     `deleted_at` IS NULL 
 ORDER BY 
@@ -40,15 +39,18 @@ $query = $mysqli->query($sql);
         <div class="x_panel">
             <div class="x_content">
                 <div class="table-responsive">
-                    <h1>Show City</h1>
+                    <h1>Show Setting</h1>
                     <table class="table table-striped jambo_table bulk_action ">
                         <thead class="">
                             <tr class="headings my-2">
                                 <th>
                                     <input type="checkbox" id="check-all" class="flat">
                                 </th>
-                                <th class="column-title">id </th>
-                                <th class="column-title">name </th>
+                                <th class="column-title">point </th>
+                                <th class="column-title">company_name </th>
+                                <th class="column-title">company_logo </th>
+                                <th class="column-title">company_phone </th>
+                                <th class="column-title">company_email </th>
                                 <th class="column-title">Action </th>
                                 <th class="bulk-actions" colspan="7">
                                     <a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
@@ -63,18 +65,25 @@ $query = $mysqli->query($sql);
                                 while ($user = $query->fetch_assoc()) {
                                     // print_r($user);
                                     // die;
-                                    $userID = $user['id'];
-                                    $name = $user['name'];
+                                    $point = $user['point'];
+                                    $company_name = $user['company_name'];
+                                    $company_logo = $user['company_logo'];
+                                    $company_phone = $user['company_phone'];
+                                    $company_email = $user['company_email'];
 
                             ?>
                                     <tr class="even pointer">
                                         <td class="a-center">
                                             <input type="checkbox" class="flat" name="table_records">
                                         </td>
-                                        <td class=""><?php echo $userID ?></td>
+                                        <td class=""><?php echo $point ?></td>
                                         <td class="">
-                                            <h4 class=""><?php echo $name ?></h4>
+                                            <h4 class=""><?php echo $company_name ?></h4>
                                         </td>
+                                        <td class=""><?php echo $company_logo ?></td>
+                                        <td class=""><?php echo $company_phone ?></td>
+                                        <td class=""><?php echo $company_email ?></td>
+
 
                                         <td>
                                             <!-- Replace placeholders with appropriate URLs -->

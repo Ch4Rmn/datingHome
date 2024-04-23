@@ -19,42 +19,57 @@ require_once('../config/admin_middleware.php');
 
 // echo $user_id;
 $title = "MMCupid::CreateCity";
-// point 	company_logo 	company_name 	company_phone 	company_email 
-$point = $company_logo = $company_name = $company_phone = $company_email = "";
+$name = "";
 $error = false;
 $errorMessage = "";
 $processError = false;
+$point = $company_logo =  $company_name = $company_phone = $company_email = "";
+
 // $url = $adminBaseUrl . "show_city.php";
 
 if (isset($_POST['submit'])) {
-    $company_name = $mysqli->real_escape_string($_POST['$company_name']);
-    $point = (int)($_POST['$point']);
-    $company_phone = (int)($_POST['con$company_phone']);
-    $company_email = $mysqli->real_escape_string($_POST['con$company_email']);
+    // id 	point 	company_logo 	company_name 	company_phone 	company_email 
+    $point = (int)($_POST['point']);
+    $company_logo = $mysqli->real_escape_string($_POST['company_logo']);
+    $company_name = $mysqli->real_escape_string($_POST['company_name']);
+    $company_phone = $mysqli->real_escape_string($_POST['company_phone']);
+    $company_email = $mysqli->real_escape_string($_POST['company_email']);
 
-    if ($company_name == '') {
+    if ($point == '' || !is_numeric($point)) {
         $error = true;
-        $errorMessage = "need to fill company_name";
+        $errorMessage .= "need to fill point<br>";
         $processError = true;
     }
-    if ($point == '') {
+
+    if ($company_logo == '') {
         $error = true;
-        $errorMessage = "need to fill company_name";
+        $errorMessage .= "need to fill company_logo<br>";
+        $processError = true;
+    }
+    if ($company_name == '') {
+        $error = true;
+        $errorMessage .= "need to fill company_name<br>";
+        $processError = true;
+    }
+    if ($company_phone == '' || !is_numeric($company_phone)) {
+        $error = true;
+        $errorMessage .= "need to fill company_phone<br>";
         $processError = true;
     }
     if ($company_email == '') {
         $error = true;
-        $errorMessage = "need to fill company_name";
+        $errorMessage .= "need to fill company_email<br>";
         $processError = true;
     }
-    if ($company_logo == '') {
+    if ($point === "" || $company_logo === "" || $company_name === "" || $company_phone === "" || $company_email === "") {
         $error = true;
-        $errorMessage = "need to fill company_name";
+        $errorMessage .= "Need to fill all fields<br>";
         $processError = true;
     }
 
     if ($processError == false) {
-        $sql = "INSERT INTO `setting`( `point`,`company_name`,`company_email`,`company_logo`,`created_by`, `updated_by`) VALUES (`$point`,`$company_name`,`$company_email`,`$company_logo`,`created_by`, `updated_by`)";
+
+        $sql = "INSERT INTO `setting`(`point`, `company_logo`, `company_name`, `company_phone`, `company_email`,`created_by`, `updated_by`) VALUES ('$point','$company_logo','$company_name','$company_phone','$company_email','$user_id','$user_id')";
         $query = $mysqli->query($sql);
         if ($query) {
             $url = $adminBaseUrl . "show_setting.php";
@@ -67,6 +82,7 @@ if (isset($_POST['submit'])) {
         }
     }
 }
+
 // header 
 require_once('../master/cp-template-header.php');
 // sidebar 
@@ -89,7 +105,7 @@ require_once('../master/cp-template-navbar.php');
                 </div>
                 <div class="x_content">
                     <br />
-                    <form action="<?php echo $adminBaseUrl ?>create_city.php" method="POST">
+                    <form action="<?php echo $adminBaseUrl ?>create_setting.php" method="POST">
 
                         <!-- $point = $company_logo = $company_name = $company_phone = $company_email = ""; -->
 
@@ -97,26 +113,45 @@ require_once('../master/cp-template-navbar.php');
                             <label class="col-form-label col-md-3 col-sm-3 label-align" for="point">point <span class="required">*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 ">
-                                <input type="number" id="point" placeholder="fill point" class="form-control" point="point" value="<?php echo $point; ?>">
+                                <input type="number" id="point" placeholder="fill point" class="form-control" name="point" value="<?php echo $name; ?>">
                             </div>
                         </div>
+
+                        <div class="item form-group">
+                            <label class="col-form-label col-md-3 col-sm-3 label-align" for="company_logo">company_logo <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 ">
+                                <input type="text" id="company_logo" placeholder="fill company_logo" class="form-control" name="company_logo" value="<?php echo $name; ?>">
+                            </div>
+                        </div>
+
+                        <!-- company logo image  -->
+
+
 
                         <div class="item form-group">
                             <label class="col-form-label col-md-3 col-sm-3 label-align" for="company_name">company_name <span class="required">*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 ">
-                                <input type="text" id="company_name" placeholder="fill company_name" class="form-control" company_name="company_name" value="<?php echo $point; ?>">
+                                <input type="text" id="company_name" placeholder="fill company_name" class="form-control" name="company_name" value="<?php echo $name; ?>">
                             </div>
                         </div>
 
                         <div class="item form-group">
-                            <label class="col-form-label col-md-3 col-sm-3 label-align" for="point">point <span class="required">*</span>
+                            <label class="col-form-label col-md-3 col-sm-3 label-align" for="company_phone">company_phone <span class="required">*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 ">
-                                <input type="text" id="point" placeholder="fill point" class="form-control" point="point" value="<?php echo $point; ?>">
+                                <input type="text" id="company_phone" placeholder="fill company_phone" class="form-control" name="company_phone" value="<?php echo $name; ?>">
                             </div>
                         </div>
 
+                        <div class="item form-group">
+                            <label class="col-form-label col-md-3 col-sm-3 label-align" for="company_email">company_email <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 ">
+                                <input type="text" id="company_email" placeholder="fill company_email" class="form-control" name="company_email" value="<?php echo $name; ?>">
+                            </div>
+                        </div>
 
 
                         <input type="hidden" name="form-sub" value="1">

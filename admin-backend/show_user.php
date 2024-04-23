@@ -116,8 +116,8 @@ $query = $mysqli->query($sql);
                                         </td>
                                     </tr>
                             <?php
-                                } // End of the while loop
-                            } // End of the if condition
+                                } 
+                            } 
                             ?>
                         </tbody>
 
