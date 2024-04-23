@@ -28,6 +28,7 @@ $point = $company_logo =  $company_name = $company_phone = $company_email = "";
 // $url = $adminBaseUrl . "show_city.php";
 
 if (isset($_POST['submit'])) {
+
     // id 	point 	company_logo 	company_name 	company_phone 	company_email 
     $point = (int)($_POST['point']);
     $company_logo = $mysqli->real_escape_string($_POST['company_logo']);
@@ -41,11 +42,6 @@ if (isset($_POST['submit'])) {
         $processError = true;
     }
 
-    if ($company_logo == '') {
-        $error = true;
-        $errorMessage .= "need to fill company_logo<br>";
-        $processError = true;
-    }
     if ($company_name == '') {
         $error = true;
         $errorMessage .= "need to fill company_name<br>";
@@ -61,27 +57,71 @@ if (isset($_POST['submit'])) {
         $errorMessage .= "need to fill company_email<br>";
         $processError = true;
     }
-    if ($point === "" || $company_logo === "" || $company_name === "" || $company_phone === "" || $company_email === "") {
+    if ($point === "" ||  $company_name === "" || $company_phone === "" || $company_email === "") {
         $error = true;
         $errorMessage .= "Need to fill all fields<br>";
         $processError = true;
     }
 
     if ($processError == false) {
+        if (isset($_FILES['company_logo'])) {
+            $uploadDir = "images/";
+            if (!is_dir($uploadDir) || !file_exists($uploadDir)) {
+                mkdir($uploadDir, 0777, true);
+            }
 
-        $sql = "INSERT INTO `setting`(`point`, `company_logo`, `company_name`, `company_phone`, `company_email`,`created_by`, `updated_by`) VALUES ('$point','$company_logo','$company_name','$company_phone','$company_email','$user_id','$user_id')";
-        $query = $mysqli->query($sql);
-        if ($query) {
-            $url = $adminBaseUrl . "show_setting.php";
-            header("Refresh:0;url=$url");
-            exit();
-        } else {
-            // Handle error if the query fails
-            $error = true;
-            $errorMessage .= "Error When Create: " . $mysqli->error . "</br>";
+            $image_name = $uploadDir . uniqid() . date("d-m-y") . basename($_FILES['company_logo']['name']);
+            // var_dump($image_name);
+            // exit();
+            $tmp_name = $_FILES['company_logo']['tmp_name'];
+            if (checkImageExtension($image_name)) {
+                move_uploaded_file($tmp_name, $image_name);
+            }
+
+
+            $sql = "INSERT INTO `setting`(`point`, `company_logo`, `company_name`, `company_phone`, `company_email`,`created_by`, `updated_by`) VALUES ('$point','$image_name','$company_name','$company_phone','$company_email','$user_id','$user_id')";
+            $query = $mysqli->query($sql);
+            if ($query) {
+                $url = $adminBaseUrl . "show_setting.php";
+                header("Refresh:0;url=$url");
+                exit();
+            } else {
+                // Handle error if the query fails
+                $error = true;
+                $errorMessage .= "Error When Create: " . $mysqli->error . "</br>";
+            }
         }
     }
 }
+
+// if (isset($_FILES['file'])) {
+//     $uploadDir = 'image/';
+//     if (!is_dir($uploadDir) || !file_exists($uploadDir)) {
+//         mkdir($uploadDir, 0777, true);
+//     }
+
+//     $image_name = $uploadDir . uniqid() . date("d-m-y") . basename($_FILES['file']['name']);
+//     $tmp_name = $_FILES['file']['tmp_name'];
+
+//     if (checkImageExtension($image_name)) {
+//         move_uploaded_file($tmp_name, $image_name);
+//     }
+
+
+// if ($processError == false) {
+//     $sql = "INSERT INTO `setting`(`point`, `company_logo`, `company_name`, `company_phone`, `company_email`,`created_by`, `updated_by`) VALUES ('$point','$image_name','$company_name','$company_phone','$company_email','$user_id','$user_id')";
+//     $query = $mysqli->query($sql);
+//     if ($query) {
+//         $url = $adminBaseUrl . "show_setting.php";
+//         header("Refresh:0;url=$url");
+//         exit();
+//     } else {
+//         // Handle error if the query fails
+//         $error = true;
+//         $errorMessage .= "Error When Create: " . $mysqli->error . "</br>";
+//     }
+// }
+
 
 // header 
 require_once('../master/cp-template-header.php');
@@ -105,7 +145,7 @@ require_once('../master/cp-template-navbar.php');
                 </div>
                 <div class="x_content">
                     <br />
-                    <form action="<?php echo $adminBaseUrl ?>create_setting.php" method="POST">
+                    <form action="<?php echo $adminBaseUrl ?>create_setting.php" method="POST" enctype="multipart/form-data">
 
                         <!-- $point = $company_logo = $company_name = $company_phone = $company_email = ""; -->
 
@@ -117,13 +157,10 @@ require_once('../master/cp-template-navbar.php');
                             </div>
                         </div>
 
-                        <div class="item form-group">
-                            <label class="col-form-label col-md-3 col-sm-3 label-align" for="company_logo">company_logo <span class="required">*</span>
-                            </label>
-                            <div class="col-md-6 col-sm-6 ">
-                                <input type="text" id="company_logo" placeholder="fill company_logo" class="form-control" name="company_logo" value="<?php echo $name; ?>">
-                            </div>
-                        </div>
+                        <label for="file-upload">Upload Image</label>
+                        <input type="file" name='company_logo' id="file-upload" accept="image/*" onchange="previewImage(event);" />
+                        <img id="preview-selected-image" style="display: none; max-width: 200px; margin-top: 10px;" />
+
 
                         <!-- company logo image  -->
 
@@ -168,6 +205,20 @@ require_once('../master/cp-template-navbar.php');
         </div>
     </div>
 </div>
+
+<script>
+    // Image preview
+    const previewImage = (event) => {
+        const imageFiles = event.target.files;
+        const imagePreviewElement = document.querySelector("#preview-selected-image");
+        const imageSrc = URL.createObjectURL(imageFiles[0]);
+        if (imageSrc) {
+            imagePreviewElement.src = imageSrc;
+            imagePreviewElement.style.display = "block";
+        }
+    };
+</script>
+
 
 <?php
 // footer 

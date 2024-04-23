@@ -67,7 +67,7 @@ $query = $mysqli->query($sql);
                                     // die;
                                     $point = $user['point'];
                                     $company_name = $user['company_name'];
-                                    $company_logo = $user['company_logo'];
+                                    // $company_logo = $user['company_logo'];
                                     $company_phone = $user['company_phone'];
                                     $company_email = $user['company_email'];
 
@@ -80,7 +80,7 @@ $query = $mysqli->query($sql);
                                         <td class="">
                                             <h4 class=""><?php echo $company_name ?></h4>
                                         </td>
-                                        <td class=""><?php echo $company_logo ?></td>
+                                        <td><img src="<?php echo $baseUrl . htmlspecialchars($user['company_logo']); ?>" id="preview-selected-image" style="width: 100px;height:100px;object-fit: cover;" /></td>
                                         <td class=""><?php echo $company_phone ?></td>
                                         <td class=""><?php echo $company_email ?></td>
 
