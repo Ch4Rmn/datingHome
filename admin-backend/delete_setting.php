@@ -16,15 +16,15 @@ require_once('../config/require.php');
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
 
-    $deleteUserSql = "UPDATE `hobbies` SET deleted_at = CURRENT_TIMESTAMP, deleted_by = '$user_id' WHERE id = '$id'";
+    $deleteUserSql = "UPDATE `setting` SET deleted_at = CURRENT_TIMESTAMP, deleted_by = '$user_id' WHERE id = '$id'";
     $deleteUserQuery = $mysqli->query($deleteUserSql);
 
     if ($deleteUserQuery) {
-        $url = $adminBaseUrl . 'show_hobby.php/';
+        $url = $adminBaseUrl . 'show_setting.php/';
         header("Refresh:0;url=$url");
         exit();
     } else {
-        $url = $adminBaseUrl . 'show_hobby.php/';
+        $url = $adminBaseUrl . 'show_setting.php/';
         header("Refresh:0;url=$url");
         exit();
     }

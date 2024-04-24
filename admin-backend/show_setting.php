@@ -17,8 +17,8 @@ require_once('../master/cp-template-sidebar.php');
 // top navigation
 require_once('../master/cp-template-navbar.php');
 
-$edit_link = "edit_city.php";
-$delete_link = "delete_city.php";
+$edit_link = "edit_setting.php";
+$delete_link = "delete_setting.php";
 
 $sql = "SELECT 
     *
@@ -46,6 +46,8 @@ $query = $mysqli->query($sql);
                                 <th>
                                     <input type="checkbox" id="check-all" class="flat">
                                 </th>
+                                <th class="column-title">id </th>
+
                                 <th class="column-title">point </th>
                                 <th class="column-title">company_name </th>
                                 <th class="column-title">company_logo </th>
@@ -65,6 +67,8 @@ $query = $mysqli->query($sql);
                                 while ($user = $query->fetch_assoc()) {
                                     // print_r($user);
                                     // die;
+                                    $id = $user['id'];
+
                                     $point = $user['point'];
                                     $company_name = $user['company_name'];
                                     // $company_logo = $user['company_logo'];
@@ -76,11 +80,18 @@ $query = $mysqli->query($sql);
                                         <td class="a-center">
                                             <input type="checkbox" class="flat" name="table_records">
                                         </td>
+                                        <td class=""><?php echo $id ?></td>
+
                                         <td class=""><?php echo $point ?></td>
                                         <td class="">
                                             <h4 class=""><?php echo $company_name ?></h4>
                                         </td>
-                                        <td><img src="<?php echo $baseUrl . htmlspecialchars($user['company_logo']); ?>" id="preview-selected-image" style="width: 100px;height:100px;object-fit: cover;" /></td>
+                                        <!-- http://localhost/datingHome/imagesUpload/editor.jpeg -->
+
+                                        <td>
+
+                                            <img src="<?php echo $adminBaseUrl . htmlspecialchars($user['company_logo']); ?>" id="preview-selected-image" style="width: 100px;height:100px;object-fit: cover;" />
+                                        </td>
                                         <td class=""><?php echo $company_phone ?></td>
                                         <td class=""><?php echo $company_email ?></td>
 

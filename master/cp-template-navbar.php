@@ -17,7 +17,7 @@
                             }
                             ?></span>
                     <div class="dropdown-menu dropdown-submenu pull-right" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="">
+                        <a class="dropdown-item" href="<?php $adminBaseUrl; ?>create_setting.php">
                             <span>Settings</span>
                         </a>
                         <a class="dropdown-item" href="<?php $adminBaseUrl; ?>logout.php"><i class="fa fa-sign-out pull-right"></i> Log Out</a>

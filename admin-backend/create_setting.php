@@ -65,19 +65,18 @@ if (isset($_POST['submit'])) {
 
     if ($processError == false) {
         if (isset($_FILES['company_logo'])) {
-            $uploadDir = "images/";
+            $uploadDir = "imagesUpload/";
             if (!is_dir($uploadDir) || !file_exists($uploadDir)) {
                 mkdir($uploadDir, 0777, true);
             }
 
-            $image_name = $uploadDir . uniqid() . date("d-m-y") . basename($_FILES['company_logo']['name']);
+            $image_name = $uploadDir . uniqid() . date("d-m-y") . $_FILES['company_logo']['name'];
             // var_dump($image_name);
             // exit();
             $tmp_name = $_FILES['company_logo']['tmp_name'];
-            if (checkImageExtension($image_name)) {
-                move_uploaded_file($tmp_name, $image_name);
-            }
-
+            // if (checkImageExtension($image_name)) {
+            move_uploaded_file($tmp_name, $image_name);
+            // }
 
             $sql = "INSERT INTO `setting`(`point`, `company_logo`, `company_name`, `company_phone`, `company_email`,`created_by`, `updated_by`) VALUES ('$point','$image_name','$company_name','$company_phone','$company_email','$user_id','$user_id')";
             $query = $mysqli->query($sql);
@@ -140,7 +139,7 @@ require_once('../master/cp-template-navbar.php');
         <div class="col-md-12 col-sm-12 ">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2>Create City<small></small></h2>
+                    <h2>Create Setting<small></small></h2>
                     <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
@@ -157,9 +156,18 @@ require_once('../master/cp-template-navbar.php');
                             </div>
                         </div>
 
-                        <label for="file-upload">Upload Image</label>
-                        <input type="file" name='company_logo' id="file-upload" accept="image/*" onchange="previewImage(event);" />
-                        <img id="preview-selected-image" style="display: none; max-width: 200px; margin-top: 10px;" />
+                        <div class="item form-group">
+                            <label class="col-form-label col-md-3 col-sm-3 label-align" for="file-upload">Upload Image <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 ">
+                                <input type="file" id="file-upload" placeholder="fill point" class="form-control" name="company_logo" accept="image/*" onchange="previewImage(event);" value="<?php echo $name; ?>">
+                                <img id="preview-selected-image" style="display: none; max-width: 200px; margin-top: 10px;" />
+
+                            </div>
+                        </div>
+
+                        <!-- <label for="file-upload">Upload Image</label>
+                        <input type="file" name='company_logo' id="file-upload" accept="image/*" onchange="previewImage(event);" /> -->
 
 
                         <!-- company logo image  -->
