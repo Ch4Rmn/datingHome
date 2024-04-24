@@ -24,4 +24,4 @@
     </style>
 </head>
 
-<body style="background-color: #e9d8ff">
+<body style="background-color: #e9d8ff" >
