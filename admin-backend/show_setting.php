@@ -1,6 +1,8 @@
 <?php
 session_start();
 $auth_role = [1];
+$userID = isset($_SESSION['id']) ? ($_SESSION['id']) : ($_COOKIE['id']);
+// die;
 
 // config 
 require_once('../config/config.php');
@@ -75,6 +77,7 @@ $query = $mysqli->query($sql);
                                     $company_phone = $user['company_phone'];
                                     $company_email = $user['company_email'];
 
+
                             ?>
                                     <tr class="even pointer">
                                         <td class="a-center">
@@ -99,7 +102,7 @@ $query = $mysqli->query($sql);
                                         <td>
                                             <!-- Replace placeholders with appropriate URLs -->
                                             <a class="btn btn-danger" href='javascript:void(0)' onclick="confirmDelete('<?php echo $adminBaseUrl . $delete_link . '?id=' . $userID; ?>')"> <i class="fa fa-trash-o"></i>Delete</a>
-                                            <a class="btn btn-primary" href='javascript:void(0)' onclick="confirmEdit('<?php echo $adminBaseUrl . $edit_link . '?id=' . $userID; ?>')"> <i class="fa fa-pencil"></i>Edit</a>
+                                            <a class="btn btn-primary" href='javascript:void(0)' onclick="confirmEdit('<?php echo $adminBaseUrl . $edit_link . '?id=' . $id; ?>')"> <i class="fa fa-pencil"></i>Edit</a>
                                         </td>
                                     </tr>
                             <?php

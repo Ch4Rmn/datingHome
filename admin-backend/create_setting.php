@@ -161,7 +161,7 @@ require_once('../master/cp-template-navbar.php');
                             </label>
                             <div class="col-md-6 col-sm-6 ">
                                 <input type="file" id="file-upload" placeholder="fill point" class="form-control" name="company_logo" accept="image/*" onchange="previewImage(event);" value="<?php echo $name; ?>">
-                                <img id="preview-selected-image" style="display: none; max-width: 200px; margin-top: 10px;" />
+                                <img id="preview-selected-image" style="display: none; max-width: 200px; margin-top: 10px;" onclick="fileBrowse()" />
 
                             </div>
                         </div>
@@ -216,6 +216,11 @@ require_once('../master/cp-template-navbar.php');
 
 <script>
     // Image preview
+
+    function fileBrowse() {
+        $('#file-upload').click();
+    }
+
     const previewImage = (event) => {
         const imageFiles = event.target.files;
         const imagePreviewElement = document.querySelector("#preview-selected-image");

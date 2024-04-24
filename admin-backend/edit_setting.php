@@ -20,20 +20,25 @@ $showForm = true;
 
 $id = (int) $_GET['id'];
 
-$user_sql = "SELECT * FROM user WHERE id='$id' AND deleted_at IS NULL";
+$user_sql = "SELECT * FROM setting WHERE id='$id' AND deleted_at IS NULL";
 $user_query = $mysqli->query($user_sql);
 $user_num_row = $user_query->num_rows;
 
 if ($user_num_row > 0) {
     while ($user_row = $user_query->fetch_assoc()) {
-        $username = htmlspecialchars($user_row['username']);
-        $id = htmlspecialchars($user_row['id']);
-        $status = htmlspecialchars($user_row['status']);
-        $role = htmlspecialchars($user_row['role']);
+        $point = htmlspecialchars($user_row['point']);
+        $company_name = htmlspecialchars($user_row['company_name']);
+        $company_email = htmlspecialchars($user_row['company_email']);
+        $company_logo = htmlspecialchars($user_row['company_logo']);
+        $company_phone = htmlspecialchars($user_row['company_phone']);
+        // $company_phone = htmlspecialchars($user_row['company_phone']);
+        // $id = htmlspecialchars($user_row['id']);
+        // $status = htmlspecialchars($user_row['status']);
+        // $role = htmlspecialchars($user_row['role']);
     }
 } else {
     $error = true;
-    $errorMessage = 'User not found or Deleted from Our Main Server!';
+    $errorMessage = 'Hobbies not found or Deleted from Our Main Server!';
     $showForm = false;
 }
 ?>
@@ -49,39 +54,47 @@ if ($user_num_row > 0) {
                     </div>
                     <div class="x_content">
                         <br />
-                        <form action="<?php echo $adminBaseUrl ?>update_user.php?id=<?php echo $id; ?>" method="POST">
+                        <form action="<?php echo $adminBaseUrl ?>update_setting.php?id=<?php echo $id; ?>" method="POST">
                             <div class="item form-group">
-                                <label class="col-form-label col-md-3 col-sm-3 label-align" for="username">Username <span class="required">*</span>
+                                <label class="col-form-label col-md-3 col-sm-3 label-align" for="point">point <span class="required">*</span>
                                 </label>
                                 <div class="col-md-6 col-sm-6 ">
-                                    <input type="text" id="username" placeholder="fill username" class="form-control" name="username" value="<?php echo $username; ?>">
+                                    <input type="text" id="point" placeholder="fill point" class="form-control" name="point" value="<?php echo $point; ?>">
                                 </div>
                             </div>
 
                             <div class="item form-group">
-                                <label class="col-form-label col-md-3 col-sm-3 label-align" for="status">Status</label> <span class="required"></span>
+                                <label class="col-form-label col-md-3 col-sm-3 label-align" for="company_name">company_name <span class="required">*</span>
                                 </label>
                                 <div class="col-md-6 col-sm-6 ">
-                                    <select class="form-control" id="status" name="status">
-                                        <option value="">Choose Status</option>
-                                        <option value="0" <?php if ($status == 0) echo "selected"; ?>>Active</option>
-                                        <option value="1" <?php if ($status == 1) echo "selected"; ?>>Inactive</option>
-                                    </select>
+                                    <input type="text" id="company_name" placeholder="fill company_name" class="form-control" name="company_name" value="<?php echo $company_name; ?>">
                                 </div>
                             </div>
 
                             <div class="item form-group">
-                                <label class="col-form-label col-md-3 col-sm-3 label-align" for="Role">Role</label> <span class="required"></span>
+                                <label class="col-form-label col-md-3 col-sm-3 label-align" for="company_email">company_email <span class="required">*</span>
                                 </label>
                                 <div class="col-md-6 col-sm-6 ">
-                                    <select class="form-control" id="role" name="role">
-                                        <option value="">Choose Role</option>
-                                        <option value="1" <?php if ($role == 1) echo "selected"; ?>>Admin</option>
-                                        <option value="2" <?php if ($role == 2) echo "selected"; ?>>Customer Service</option>
-                                        <option value="3" <?php if ($role == 3) echo "selected"; ?>>Editor</option>
-                                    </select>
+                                    <input type="text" id="company_email" placeholder="fill company_email" class="form-control" name="company_email" value="<?php echo $company_email; ?>">
                                 </div>
                             </div>
+
+                            <!-- <div class="item form-group">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align" for="company_logo">company_logo <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 ">
+                                    <input type="text" id="company_logo" placeholder="fill company_logo" class="form-control" name="company_logo" value="<?php echo $company_logo; ?>">
+                                </div>
+                            </div> -->
+
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align" for="company_phone">company_phone <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 ">
+                                    <input type="text" id="company_phone" placeholder="fill company_phone" class="form-control" name="company_phone" value="<?php echo $company_phone; ?>">
+                                </div>
+                            </div>
+
                             <div class="ln_solid"></div>
                             <div class="item form-group">
                                 <div class="col-md-6 col-sm-6 offset-md-3">
@@ -96,6 +109,8 @@ if ($user_num_row > 0) {
     </div>
 <?php endif; ?>
 
+
+<!-- <button type="button" class="btn btn-secondary" onclick="history.back()">Go Back</button> -->
 <!-- page content -->
 
 <?php
