@@ -92,9 +92,14 @@ $query = $mysqli->query($sql);
                                         <!-- http://localhost/datingHome/imagesUpload/editor.jpeg -->
 
                                         <td>
-
-                                            <img src="<?php echo $adminBaseUrl . htmlspecialchars($user['company_logo']); ?>" id="preview-selected-image" style="width: 100px;height:100px;object-fit: cover;" />
+                                            <?php if (!empty($user['company_logo'])) : ?>
+                                                <img src="<?php echo $adminBaseUrl . htmlspecialchars($user['company_logo']); ?>" id="preview-selected-image" style="width: 100px;height:100px;object-fit: cover;" />
+                                            <?php else : ?>
+                                                <!-- Default image -->
+                                                <img src="/assets/images/editor.jpeg" style="width: 100px;height:100px;object-fit: cover;" id="preview-selected-image" style="width: 100px;height:100px;object-fit: cover;" />
+                                            <?php endif; ?>
                                         </td>
+                                   
                                         <td class=""><?php echo $company_phone ?></td>
                                         <td class=""><?php echo $company_email ?></td>
 

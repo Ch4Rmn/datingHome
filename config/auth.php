@@ -6,13 +6,13 @@
 
     $auth = false;
 
-    if (isset($_SESSION['id']) || $_SESSION['username']) {
+    if (isset($_SESSION['id']) || $_SESSION['id']) {
         $auth = true;
         $user_id = $_SESSION['id'];
         // $username = $_SESSION['username'];
     }
     if (
-        isset($_COOKIE['id']) || isset($_COOKIE['username'])
+        isset($_COOKIE['id']) || isset($_COOKIE['id'])
     ) {
         $auth = true;
         $user_id = $_COOKIE['id'];

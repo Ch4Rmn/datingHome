@@ -26,7 +26,30 @@ $processError = false;
 $point = $company_logo =  $company_name = $company_phone = $company_email = "";
 
 // $url = $adminBaseUrl . "show_city.php";
+$sql = "SELECT 
+    *
+FROM 
+    `setting` 
+WHERE 
+    `deleted_at` IS NULL 
+ORDER BY 
+    `created_at` DESC;
+";
+$query = $mysqli->query($sql);
+$num_row = $query->num_rows;
+if ($num_row >= 1) {
+    while ($user = $query->fetch_assoc()) {
+        // print_r($user);
+        // die;
+        $id = $user['id'];
 
+        $point = $user['point'];
+        $company_name = $user['company_name'];
+        $company_logo = $user['company_logo'];
+        $company_phone = $user['company_phone'];
+        $company_email = $user['company_email'];
+    }
+}
 if (isset($_POST['submit'])) {
 
     // id 	point 	company_logo 	company_name 	company_phone 	company_email 
@@ -91,35 +114,11 @@ if (isset($_POST['submit'])) {
             }
         }
     }
+} else {
 }
 
-// if (isset($_FILES['file'])) {
-//     $uploadDir = 'image/';
-//     if (!is_dir($uploadDir) || !file_exists($uploadDir)) {
-//         mkdir($uploadDir, 0777, true);
-//     }
-
-//     $image_name = $uploadDir . uniqid() . date("d-m-y") . basename($_FILES['file']['name']);
-//     $tmp_name = $_FILES['file']['tmp_name'];
-
-//     if (checkImageExtension($image_name)) {
-//         move_uploaded_file($tmp_name, $image_name);
-//     }
 
 
-// if ($processError == false) {
-//     $sql = "INSERT INTO `setting`(`point`, `company_logo`, `company_name`, `company_phone`, `company_email`,`created_by`, `updated_by`) VALUES ('$point','$image_name','$company_name','$company_phone','$company_email','$user_id','$user_id')";
-//     $query = $mysqli->query($sql);
-//     if ($query) {
-//         $url = $adminBaseUrl . "show_setting.php";
-//         header("Refresh:0;url=$url");
-//         exit();
-//     } else {
-//         // Handle error if the query fails
-//         $error = true;
-//         $errorMessage .= "Error When Create: " . $mysqli->error . "</br>";
-//     }
-// }
 
 
 // header 
@@ -152,7 +151,7 @@ require_once('../master/cp-template-navbar.php');
                             <label class="col-form-label col-md-3 col-sm-3 label-align" for="point">point <span class="required">*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 ">
-                                <input type="number" id="point" placeholder="fill point" class="form-control" name="point" value="<?php echo $name; ?>">
+                                <input type="number" id="point" placeholder="fill point" class="form-control" name="point" value="<?php echo $point; ?>">
                             </div>
                         </div>
 
@@ -160,25 +159,22 @@ require_once('../master/cp-template-navbar.php');
                             <label class="col-form-label col-md-3 col-sm-3 label-align" for="file-upload">Upload Image <span class="required">*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 ">
-                                <input type="file" id="file-upload" placeholder="fill point" class="form-control" name="company_logo" accept="image/*" onchange="previewImage(event);" value="<?php echo $name; ?>">
-                                <img id="preview-selected-image" style="display: none; max-width: 200px; margin-top: 10px;" onclick="fileBrowse()" />
+                                <input type="file" id="file-upload" placeholder="fill point" class="form-control" name="company_logo" accept="image/*" onchange="previewImage(event);" value="<?php echo $company_name; ?>">
+                                <!-- <img id="preview-selected-image" style="display: none; max-width: 200px; margin-top: 10px;" onclick="fileBrowse()" /> -->
+                                <img src="<?php echo $adminBaseUrl . $company_logo; ?>" id="preview-selected-image" style="width: 150px;height:130px;object-fit: cover;" onclick="fileBrowse()" />
 
                             </div>
                         </div>
 
                         <!-- <label for="file-upload">Upload Image</label>
                         <input type="file" name='company_logo' id="file-upload" accept="image/*" onchange="previewImage(event);" /> -->
-
-
                         <!-- company logo image  -->
-
-
 
                         <div class="item form-group">
                             <label class="col-form-label col-md-3 col-sm-3 label-align" for="company_name">company_name <span class="required">*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 ">
-                                <input type="text" id="company_name" placeholder="fill company_name" class="form-control" name="company_name" value="<?php echo $name; ?>">
+                                <input type="text" id="company_name" placeholder="fill company_name" class="form-control" name="company_name" value="<?php echo $company_name; ?>">
                             </div>
                         </div>
 
@@ -186,7 +182,7 @@ require_once('../master/cp-template-navbar.php');
                             <label class="col-form-label col-md-3 col-sm-3 label-align" for="company_phone">company_phone <span class="required">*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 ">
-                                <input type="text" id="company_phone" placeholder="fill company_phone" class="form-control" name="company_phone" value="<?php echo $name; ?>">
+                                <input type="text" id="company_phone" placeholder="fill company_phone" class="form-control" name="company_phone" value="<?php echo $company_phone; ?>">
                             </div>
                         </div>
 
@@ -194,7 +190,7 @@ require_once('../master/cp-template-navbar.php');
                             <label class="col-form-label col-md-3 col-sm-3 label-align" for="company_email">company_email <span class="required">*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 ">
-                                <input type="text" id="company_email" placeholder="fill company_email" class="form-control" name="company_email" value="<?php echo $name; ?>">
+                                <input type="text" id="company_email" placeholder="fill company_email" class="form-control" name="company_email" value="<?php echo $company_email; ?>">
                             </div>
                         </div>
 
