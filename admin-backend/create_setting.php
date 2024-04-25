@@ -24,8 +24,10 @@ $error = false;
 $errorMessage = "";
 $processError = false;
 $point = $company_logo =  $company_name = $company_phone = $company_email = "";
+$uploadDir = "imagesUpload/";
+$image = ($_FILES['company_logo']);
 
-// $url = $adminBaseUrl . "show_city.php";
+
 $sql = "SELECT 
     *
 FROM 
@@ -42,14 +44,21 @@ if ($num_row >= 1) {
         // print_r($user);
         // die;
         $id = $user['id'];
-
         $point = $user['point'];
         $company_name = $user['company_name'];
         $company_logo = $user['company_logo'];
         $company_phone = $user['company_phone'];
         $company_email = $user['company_email'];
+        // echo $id;
+        // exit();
+        // echo $id;
+        // exit();
     }
 }
+
+
+// $url = $adminBaseUrl . "show_city.php";
+
 if (isset($_POST['submit'])) {
 
     // id 	point 	company_logo 	company_name 	company_phone 	company_email 
@@ -87,22 +96,46 @@ if (isset($_POST['submit'])) {
     }
 
     if ($processError == false) {
-        if (isset($_FILES['company_logo'])) {
-            $uploadDir = "imagesUpload/";
+        // echo $id;
+        // exit();
+
+        if ($image['name'] == '') {
+
             if (!is_dir($uploadDir) || !file_exists($uploadDir)) {
                 mkdir($uploadDir, 0777, true);
             }
 
             $image_name = $uploadDir . uniqid() . date("d-m-y") . $_FILES['company_logo']['name'];
-            // var_dump($image_name);
-            // exit();
             $tmp_name = $_FILES['company_logo']['tmp_name'];
-            // if (checkImageExtension($image_name)) {
-            move_uploaded_file($tmp_name, $image_name);
-            // }
+            if(checkImageExtension($image_name)){
+                move_uploaded_file($tmp_name, $image_name);
 
-            $sql = "INSERT INTO `setting`(`point`, `company_logo`, `company_name`, `company_phone`, `company_email`,`created_by`, `updated_by`) VALUES ('$point','$image_name','$company_name','$company_phone','$company_email','$user_id','$user_id')";
+            }
+
+            $sql = "INSERT INTO `setting`(`point`, `company_logo`, `company_name`, `company_phone`, `company_email`, `created_by`, `updated_by`) VALUES ('$point','$image_name','$company_name','$company_phone','$company_email','$user_id','$user_id')";
             $query = $mysqli->query($sql);
+
+            if ($query) {
+                $url = $adminBaseUrl . "show_setting.php";
+                header("Refresh:0;url=$url");
+                exit();
+            } else {
+                // Handle error if the query fails
+                $error = true;
+                $errorMessage .= "Error When Create: " . $mysqli->error . "</br>";
+            }
+        } else {
+            if (!is_dir($uploadDir) || !file_exists($uploadDir)) {
+                mkdir($uploadDir, 0777, true);
+            }
+
+            $image_name = $uploadDir . uniqid() . date("d-m-y") . $_FILES['company_logo']['name'];
+            $tmp_name = $_FILES['company_logo']['tmp_name'];
+            move_uploaded_file($tmp_name, $image_name);
+
+            $update_sql = "UPDATE `setting` SET point='$point', company_name='$company_name',company_logo='$image_name', company_email='$company_email',company_phone='$company_phone', updated_at=CURRENT_TIMESTAMP, updated_by='$user_id' WHERE id=$id";
+            $update_query = $mysqli->query($update_sql);
+
             if ($query) {
                 $url = $adminBaseUrl . "show_setting.php";
                 header("Refresh:0;url=$url");

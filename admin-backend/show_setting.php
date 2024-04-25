@@ -99,7 +99,7 @@ $query = $mysqli->query($sql);
                                                 <img src="/assets/images/editor.jpeg" style="width: 100px;height:100px;object-fit: cover;" id="preview-selected-image" style="width: 100px;height:100px;object-fit: cover;" />
                                             <?php endif; ?>
                                         </td>
-                                   
+
                                         <td class=""><?php echo $company_phone ?></td>
                                         <td class=""><?php echo $company_email ?></td>
 
