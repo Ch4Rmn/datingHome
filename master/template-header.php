@@ -17,11 +17,16 @@
     <script src="<?php echo $baseUrl; ?>assets/css/front/jquery-ui.js"></script>
 
     <script src="<?php echo $baseUrl; ?>assets/css/front/angular.min.js"></script>
+    <script src="<?php echo $baseUrl; ?>assets/css/front/error_message.js"></script>
     <style>
         .btn-outline-secondary {
             --bs-btn-hover-bg: #6c757d32;
         }
     </style>
+    <script>
+        var base_url = "http://localhost/datingHome/";
+    </script>
 </head>
 
-<body style="background-color: #e9d8ff" >
+
+<body style="background-color: #e9d8ff">

@@ -96,7 +96,7 @@ $query = $mysqli->query($sql);
                                                 <img src="<?php echo $adminBaseUrl . htmlspecialchars($user['company_logo']); ?>" id="preview-selected-image" style="width: 100px;height:100px;object-fit: cover;" />
                                             <?php else : ?>
                                                 <!-- Default image -->
-                                                <img src="/assets/images/editor.jpeg" style="width: 100px;height:100px;object-fit: cover;" id="preview-selected-image" style="width: 100px;height:100px;object-fit: cover;" />
+                                                <img src="../assets/images/editor.jpeg" style="width: 100px;height:100px;object-fit: cover;" id="preview-selected-image" style="width: 100px;height:100px;object-fit: cover;" />
                                             <?php endif; ?>
                                         </td>
 
@@ -128,39 +128,17 @@ require_once('../master/cp-template-footer.php'); ?>
 <script>
     function confirmDelete(url) {
         Swal.fire({
-            title: "Are you sure?",
-            text: "You won't be able to revert this!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, delete it!"
-        }).then((result) => {
-            if (result.isConfirmed) {
-                setTimeout(() => {
-                    Swal.fire({
-                        title: "Delete Complete",
-                        text: "Your file has been deleted.",
-                        icon: "success",
-                        showCancelButton: false,
-                        confirmButtonColor: "#3085d6",
-                        confirmButtonText: "OK"
-                    }).then(() => {
-                        // Redirect to the specified URL
-                        window.location.href = url;
-                    });
-                }, 1000); // Simulated delay of 1 second (1000 milliseconds)
-            }
+            icon: "error",
+            title: "Oops...We didn't allow to DELETE",
+            text: "Something went wrong!",
+            footer: '<a href="#">Why do I have this issue?</a>'
         });
     }
-
-
-
-
+    
     function confirmEdit(url) {
         Swal.fire({
-            title: "Are you sure?",
-            text: "You won't be able to revert this!",
+            title: "Are you sure to EDIT?",
+            text: "U cant update image bec of our policy",
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: "#3085d6",

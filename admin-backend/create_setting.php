@@ -88,7 +88,12 @@ if (isset($_POST['submit'])) {
         $error = true;
         $errorMessage .= "need to fill company_email<br>";
         $processError = true;
+    } elseif (!filter_var($company_email, FILTER_VALIDATE_EMAIL)) {
+        $error = true;
+        $errorMessage .= "Invalid email format for company_email<br>";
+        $processError = true;
     }
+    
     if ($point === "" ||  $company_name === "" || $company_phone === "" || $company_email === "") {
         $error = true;
         $errorMessage .= "Need to fill all fields<br>";
@@ -107,9 +112,8 @@ if (isset($_POST['submit'])) {
 
             $image_name = $uploadDir . uniqid() . date("d-m-y") . $_FILES['company_logo']['name'];
             $tmp_name = $_FILES['company_logo']['tmp_name'];
-            if(checkImageExtension($image_name)){
+            if (checkImageExtension($image_name)) {
                 move_uploaded_file($tmp_name, $image_name);
-
             }
 
             $sql = "INSERT INTO `setting`(`point`, `company_logo`, `company_name`, `company_phone`, `company_email`, `created_by`, `updated_by`) VALUES ('$point','$image_name','$company_name','$company_phone','$company_email','$user_id','$user_id')";
@@ -194,7 +198,7 @@ require_once('../master/cp-template-navbar.php');
                             <div class="col-md-6 col-sm-6 ">
                                 <input type="file" id="file-upload" placeholder="fill point" class="form-control" name="company_logo" accept="image/*" onchange="previewImage(event);" value="<?php echo $company_name; ?>">
                                 <!-- <img id="preview-selected-image" style="display: none; max-width: 200px; margin-top: 10px;" onclick="fileBrowse()" /> -->
-                                <img src="<?php echo $adminBaseUrl . $company_logo; ?>" id="preview-selected-image" style="width: 150px;height:130px;object-fit: cover;" onclick="fileBrowse()" />
+                                <img src="<?php echo $adminBaseUrl . $company_logo; ?>" id="preview-selected-image" style="width: 200px;height:150px;object-fit: cover;" onclick="fileBrowse()" />
 
                             </div>
                         </div>
