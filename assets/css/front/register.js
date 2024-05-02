@@ -17,6 +17,13 @@ app.controller("myCtrl", function ($scope, $http) {
   $scope.about = "";
   $scope.heightFeet = "";
   $scope.heightInches = "";
+  $scope.minAges = "";
+  $scope.maxAges = "";
+  // $scope.minAge = 18;
+  // $scope.maxAge = 55;
+  $scope.partnerAge = [];
+  $scope.userInfo = true;
+  $scope.userPhoto = false;
 
   // error
   $scope.process_error = false;
@@ -39,6 +46,9 @@ app.controller("myCtrl", function ($scope, $http) {
   $scope.error_hobby_message = "";
 
   $scope.init = function () {
+    for (let i = 18; i < 55; i++) {
+      $scope.partnerAge.push(i);
+    }
     // alert("hello");
 
     // cities
@@ -56,60 +66,60 @@ app.controller("myCtrl", function ($scope, $http) {
     });
   };
 
-  $scope.step1 = function () {
-    const name = $("#name").val();
-    const password = $("#password").val();
-    const confirm_password = $("#confirm_password").val();
-    const city = $("#city").val();
-    const email = $("#email").val();
-    const hobby = $("#email").val();
-    // console.log(name);
-    if (name == "") {
-      // console.log('hello');
-      $scope.error_name = true;
-      $scope.process_error = true;
-      $scope.error_name_message = error_messages.a001 + "name";
-    }
-    // else {
-    //   alert("have data")
-    // }
-    if (password == "") {
-      // console.log('hello');
-      $scope.error_password = true;
-      $scope.process_error = true;
-      $scope.error_password_message = error_messages.a001 + "password";
-    }
-    if (hobby == "") {
-      // console.log("hello");
-      $scope.error_hobby = true;
-      $scope.process_error = true;
-      $scope.error_hobby_message = error_messages.a001 + "hobby";
-    }
-    if (confirm_password == "") {
-      // console.log('hello');
-      $scope.error_confirm_password = true;
-      $scope.process_error = true;
-      $scope.error_confirm_password_message =
-        error_messages.a001 + "confirm_password";
-    }
-    if (email == "") {
-      // console.log('hello');
-      $scope.error_email = true;
-      $scope.process_error = true;
-      $scope.error_email_message = error_messages.a001 + "email";
-    }
-    if (city == "") {
-      // console.log('hello');
-      $scope.error_city = true;
-      $scope.process_error = true;
-      $scope.error_city_message = error_messages.a001 + "city";
-    }
-    if ($scope.process_error == true) {
-      // alert($scope.error_password_message);
-      $scope.process_error == false;
-    } else {
-    }
-  };
+  // $scope.step1 = function () {
+  //   const name = $("#name").val();
+  //   const password = $("#password").val();
+  //   const confirm_password = $("#confirm_password").val();
+  //   const city = $("#city").val();
+  //   const email = $("#email").val();
+  //   const hobby = $("#email").val();
+  //   // console.log(name);
+  //   if (name == "") {
+  //     // console.log('hello');
+  //     $scope.error_name = true;
+  //     $scope.process_error = true;
+  //     $scope.error_name_message = error_messages.a001 + "name";
+  //   }
+  //   // else {
+  //   //   alert("have data")
+  //   // }
+  //   if (password == "") {
+  //     // console.log('hello');
+  //     $scope.error_password = true;
+  //     $scope.process_error = true;
+  //     $scope.error_password_message = error_messages.a001 + "password";
+  //   }
+  //   if (hobby == "") {
+  //     // console.log("hello");
+  //     $scope.error_hobby = true;
+  //     $scope.process_error = true;
+  //     $scope.error_hobby_message = error_messages.a001 + "hobby";
+  //   }
+  //   if (confirm_password == "") {
+  //     // console.log('hello');
+  //     $scope.error_confirm_password = true;
+  //     $scope.process_error = true;
+  //     $scope.error_confirm_password_message =
+  //       error_messages.a001 + "confirm_password";
+  //   }
+  //   if (email == "") {
+  //     // console.log('hello');
+  //     $scope.error_email = true;
+  //     $scope.process_error = true;
+  //     $scope.error_email_message = error_messages.a001 + "email";
+  //   }
+  //   if (city == "") {
+  //     // console.log('hello');
+  //     $scope.error_city = true;
+  //     $scope.process_error = true;
+  //     $scope.error_city_message = error_messages.a001 + "city";
+  //   }
+  //   if ($scope.process_error == true) {
+  //     // alert($scope.error_password_message);
+  //     $scope.process_error == false;
+  //   } else {
+  //   }
+  // };
   // Reset error messages
   // alert("step1")
   //   $scope.process_error = false;
@@ -259,8 +269,7 @@ app.controller("myCtrl", function ($scope, $http) {
           if (password != confirm_password) {
             $scope.error_confirm_password = true;
             //  $scope.process_error = false;
-            $scope.error_confirm_password_message =
-              error_messages.a003;
+            $scope.error_confirm_password_message = error_messages.a003;
           } else {
             $scope.error_confirm_password = false;
             //  $scope.process_error = false;
@@ -277,7 +286,103 @@ app.controller("myCtrl", function ($scope, $http) {
     }
   };
 
-  $scope.step2 = function () {
-    $("#my-form").submit();
+  $scope.changeMinAge = function () {
+    $scope.minAges = $("#minAges").val();
+    $scope.maxAges = $("#maxAges").val();
+    // console.log($scope.minAges);
+    if ($scope.maxAges != "" && $scope.maxAges < $scope.minAges) {
+      $scope.minAges = "";
+    }
   };
+  // $scope.changeMaxAge = function () {
+  //   console.log(max);
+
+  //   if ($scope.minAges != "" && $scope.minAges < $scope.maxAges) {
+  //     $scope.maxAges = "";
+  //   }
+  // };
+
+  $scope.step2 = function () {
+    const name = $("#name").val();
+    const password = $("#password").val();
+    const confirm_password = $("#confirm_password").val();
+    const city = $("#city").val();
+    const email = $("#email").val();
+    const hobby = $("#email").val();
+    // console.log(name);
+    if (name == "") {
+      // console.log('hello');
+      $scope.error_name = true;
+      $scope.process_error = true;
+      $scope.error_name_message = error_messages.a001 + "name";
+    }
+    // else {
+    //   alert("have data")
+    // }
+    if (password == "") {
+      // console.log('hello');
+      $scope.error_password = true;
+      $scope.process_error = true;
+      $scope.error_password_message = error_messages.a001 + "password";
+    }
+    if (hobby == "") {
+      // console.log("hello");
+      $scope.error_hobby = true;
+      $scope.process_error = true;
+      $scope.error_hobby_message = error_messages.a001 + "hobby";
+    }
+    if (confirm_password == "") {
+      // console.log('hello');
+      $scope.error_confirm_password = true;
+      $scope.process_error = true;
+      $scope.error_confirm_password_message =
+        error_messages.a001 + "confirm_password";
+    }
+    if (email == "") {
+      // console.log('hello');
+      $scope.error_email = true;
+      $scope.process_error = true;
+      $scope.error_email_message = error_messages.a001 + "email";
+    }
+    if (city == "") {
+      // console.log('hello');
+      $scope.error_city = true;
+      $scope.process_error = true;
+      $scope.error_city_message = error_messages.a001 + "city";
+    }
+    if ($scope.process_error == false) {
+      $scope.userInfo = false;
+      $scope.userPhoto = true;
+      // alert($scope.error_password_message);
+      // $("#my-form").submit();
+      // $scope.process_error == false;
+    } else {
+    }
+  };
+
+  $scope.upload1 = function () {
+    $("#uploaD1").click();
+  };
+
+  $scope.upload2 = function () {
+    $("#uploaD2").click();
+  };
+
+  $scope.upload3 = function () {
+    $("#uploaD3").click();
+  };
+
+  $scope.upload4 = function () {
+    $("#uploaD4").click();
+  };
+
+  $scope.upload5 = function () {
+    $("#uploaD5").click();
+  };
+
+  $scope.upload6 = function () {
+    $("#uploaD6").click();
+  };
+
+  // $("#my-form").submit();
 });
